@@ -1,0 +1,130 @@
+//横一列に箱が並んでいないか判定
+void checkBoxClear()//
+{
+	int px = 0;
+	int py = 0;
+	int BoxCnt = 0;
+	//ブロックが完全に落下しきってから調べる
+	if (DropFlg == true)
+	{
+		return ;
+	}
+
+	for (int c = 2; c <= 5; c++)//いろの数文ループ(0,1は空白、壁)
+	{
+		ChackClearflg = false;
+		//よこはんてい
+		for (int i = -1; i < WidthSize + 1; i++)
+		{
+			for (int j = 0; j < HeightSize; j++)
+			{
+				//下・左・上・右
+			   //四角くなるとバグる
+				//途中から二つに枝分かれすると判別できない
+				if (map[j][i] == c)
+				{
+					 //0は下.1左.2上.3右
+					ChackBoxY[BoxCnt] = j;
+					ChackBoxX[BoxCnt] = i;
+					ChackBoxColor[BoxCnt] = map[ChackBoxY[BoxCnt]][ChackBoxX[BoxCnt]];
+					map[j + py][i + px] = 0;
+					BoxCnt += 1;
+					while (1)
+					{
+						if (map[j + py + 1][i + px] == c && ChackLog != 2)//下
+						{
+							py += 1; 
+							
+							ChackBoxY[BoxCnt] = j + py;
+							ChackBoxX[BoxCnt] = i + px;
+							ChackBoxColor[BoxCnt] = map[ChackBoxY[BoxCnt]][ChackBoxX[BoxCnt]];
+							map[j + py ][i + px] = 0;
+							BoxCnt += 1;
+							ChackLog = 0;
+						
+						}
+						
+						else if (map[j + py][i + px - 1] == c && ChackLog != 3)//左
+						{
+							px -= 1;
+
+							ChackBoxY[BoxCnt] = j + py;
+							ChackBoxX[BoxCnt] = i + px;
+							ChackBoxColor[BoxCnt] = map[ChackBoxY[BoxCnt]][ChackBoxX[BoxCnt]];
+							map[j + py][i + px] = 0;
+							BoxCnt += 1;
+							ChackLog = 1;
+							
+						}
+					
+						
+						else if (map[j + py - 1][i + px] == c && ChackLog != 0)//上
+						{
+							py -= 1;
+
+							ChackBoxY[BoxCnt] = j + py;
+							ChackBoxX[BoxCnt] = i + px;
+							ChackBoxColor[BoxCnt] = map[ChackBoxY[BoxCnt]][ChackBoxX[BoxCnt]];
+							map[j + py][i + px] = 0;
+							BoxCnt += 1;
+							ChackLog = 2;
+						}
+						else if (map[j + py][i + px + 1] == c && ChackLog != 1)//右
+						{
+							px += 1;
+
+							ChackBoxY[BoxCnt] = j + py;
+							ChackBoxX[BoxCnt] = i + px;
+							ChackBoxColor[BoxCnt] = map[ChackBoxY[BoxCnt]][ChackBoxX[BoxCnt]];
+							map[j + py][i + px] = 0;
+							BoxCnt += 1;
+							ChackLog = 3;
+						}
+						
+						else
+						{
+							break;
+						}	
+					}
+					//ここでChackBoxの配列に入っているぶっろくの周りを再度調べる
+					if (BoxCnt < 4)//ブロックのつながりが4以下なら確認で消したブロックを再度配置し直す
+					{
+
+
+						for (int i = 0; i <= BoxCnt; i++)
+						{
+							map[ChackBoxY[i]][ChackBoxX[i]] = ChackBoxColor[i];
+						}
+						
+					}
+					else
+					{
+						ChackClearflg = true;
+						DropFlg = true;
+					}
+
+						
+					
+					//各種データをリセットして再度検証できるようにする
+					for (int i = 0; i < 30; i++)
+					{
+						ChackBoxY[i] = 0;
+						ChackBoxX[i] = 0;
+						ChackBoxColor[i] = 0;
+					
+					}
+
+					
+					px = 0;
+					py = 0;
+					BoxCnt = 0;
+					
+				}
+				
+			}
+		}
+	}
+
+	
+	
+}

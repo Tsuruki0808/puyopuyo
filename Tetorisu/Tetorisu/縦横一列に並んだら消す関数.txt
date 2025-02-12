@@ -1,0 +1,59 @@
+/*
+int p = 0;
+for (int c = 2; c <= 5; c++)//いろの数文ループ(0,1は空白、壁)
+{
+	//よこはんてい
+	for (int i = -1;i < WidthSize + 1; i++)
+	{
+		for (int j = 0; j < HeightSize; j++)
+		{
+			while (map[j][i + p] == c)
+			{
+				p += 1;
+			}
+			if (p >= 4)
+			{
+				//WaitTimer(50);
+				for (int k = i; k < i + p; k++)
+				{
+
+					map[j][k] = 0;
+				}
+				fastcnt[0] = false;
+				
+				
+				return;
+
+			}
+			p = 0;
+		}
+
+	}
+	//たて判定
+	for (int i = -1; i < WidthSize + 1; i++)
+	{
+		for (int j = 0; j < HeightSize; j++)
+		{
+			while (map[j+p][i] == c)
+			{
+				p += 1;
+			}
+			if (p >= 4)
+			{
+				//WaitTimer(50);
+				for (int k = j; k < j + p; k++)
+				{
+
+					map[k][i] = 0;
+				}
+				fastcnt[0] = false;
+
+
+				return;
+
+			}
+			p = 0;
+		}
+
+	}
+}*/

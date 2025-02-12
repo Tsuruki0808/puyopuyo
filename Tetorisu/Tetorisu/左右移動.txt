@@ -1,0 +1,44 @@
+
+			if (keyBuf[KEY_INPUT_RIGHT] == 1)
+			{
+				BottonCnt[1] += 1;
+				//前にブロックがないなら&ボタン長押し
+					if ((map[py[1]][px[1] + 1] == 0 || map[py[2]][px[2] + 1] == 0 )//横に何もないなら
+						&& (aaa[1] == false && aaa[2] == false) && //どちらかのブロックが地面に触れていなければ
+						(BottonCnt[1] == 1 || BottonCnt[1] % 5 == 0))//ボタンが長押しされている又は押された瞬間なら
+					{
+						px[1] += 1;
+						px[2] += 1;
+
+
+						map[py[1]][px[1] - 1] = 0;
+						map[py[2]][px[2] - 1] = 0;
+						BottonCnt[1] = 2;
+					}
+					
+			}
+			else
+			{
+				BottonCnt[1] = 0;
+			}
+			if (keyBuf[KEY_INPUT_LEFT] == 1)
+			{
+				BottonCnt[2] += 1;
+				//前にブロックがないなら&ボタン長押し
+				if ((map[py[1]][px[1] - 1] == 0 || map[py[2]][px[2] - 1] == 0 ) &&
+					(aaa[1] == false && aaa[2] == false) &&  //どちらかのブロックが地面に触れていなければ
+					(BottonCnt[2] == 1 || BottonCnt[2] % 5 == 0))//ボタンが長押しされている又は押された瞬間なら
+				{
+					px[1] -= 1;
+					px[2] -= 1;
+
+					map[py[1]][px[1] + 1] = 0;
+					map[py[2]][px[2] + 1] = 0;
+					BottonCnt[2] = 2;
+				}	
+			}
+			else
+			{
+				BottonCnt[2] = 0;
+			}
+		
